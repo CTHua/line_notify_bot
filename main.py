@@ -16,24 +16,28 @@ message = u""
 with open(f"./data/{nowDate}.json", encoding="utf-8") as f:
     data = json.load(f)
     message += data["公告"]+"\n"
-    for title, value in data["total"].items():
-        message += f"{title} {value}\n"
-    message += "\n"
-    for title, value in data["data"].items():
-        if value != 0:
-            message += f"{title} {value}\n"
-    message += "\n"
+    for block in data["blocks"]:
+        for title, value in block.items():
+            if value != 0:
+                message += f"{title} {value}\n"
+        message += "\n"
     message += data["提醒"]+"\n"
 
 # 發送通知
 print(message)
+print("Start Broadcast:")
 for name, key in keys.items():
+    print(f"[{name}]")
     status = requests.get(url="https://notify-api.line.me/api/status",
                           headers={"Authorization": "Bearer " +
                                    key})
-    print(name, status.json())
+    status = status.json()
+    print(f"BOT狀態: {status['message']}\n群組名稱: {status['target']}\n", end="")
     result = requests.post(url="https://notify-api.line.me/api/notify",
                            headers={"Authorization": "Bearer " +
                                     key},
                            data={"message": message})
-    print(name, result.json())
+    if(result.status_code == 200):
+        print("發送成功")
+    else:
+        print("發送失敗")
