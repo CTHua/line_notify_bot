@@ -34,6 +34,6 @@ for name, key in keys.items():
     print(name, status.json())
     result = requests.post(url="https://notify-api.line.me/api/notify",
                            headers={"Authorization": "Bearer " +
-                                    key.encode('utf-8').decode('latin1')},
+                                    key},
                            data={"message": message})
     print(name, result.json())
