@@ -7,7 +7,7 @@ now = time.localtime()
 nowDate = time.strftime("%Y%m%d", now)
 
 keys = []
-with open("./keys.json", "r") as keyFile:
+with open("./keys.json", "r", encoding="utf-8") as keyFile:
     keys = json.load(keyFile)
 print(keys)
 
