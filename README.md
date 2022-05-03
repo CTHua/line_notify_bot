@@ -46,6 +46,8 @@ head_4 message_line_4
 提醒內容
 ```
 
-```
-then run `python line_notify_bot.py`
-```
+then run
+
+````bash
+python line_notify_bot.py
+````
