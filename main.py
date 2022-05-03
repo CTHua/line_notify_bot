@@ -15,7 +15,7 @@ print(keys)
 message = u""
 with open(f"./data/{nowDate}.json", encoding="utf-8") as f:
     data = json.load(f)
-    message += data["公告"]
+    message += data["公告"]+"\n"
     for title, value in data["total"].items():
         message += f"{title} {value}\n"
     message += "\n"
