@@ -15,13 +15,13 @@ print(keys)
 message = u""
 with open(f"./data/{nowDate}.json", encoding="utf-8") as f:
     data = json.load(f)
-    message += data["公告"]+"\n"
+    #message += data["公告"]+"\n"
     for block in data["blocks"]:
         for title, value in block.items():
-            if value != 0:
+            if int(value) != 0:
                 message += f"{title} {value}\n"
         message += "\n"
-    message += data["提醒"]+"\n"
+    message += data["提醒"]
 
 # 發送通知
 print(message)
