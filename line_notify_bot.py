@@ -18,14 +18,28 @@ with open(f"./data/{nowDate}.json", encoding="utf-8") as f:
     #message += data["公告"]+"\n"
     for block in data["blocks"]:
         for title, value in block.items():
-            if int(value) != 0:
-                message += f"{title} {value}\n"
+            if title != '本土' and title != '境外' and title != '死亡' and title != '中症' and title != '重症':
+                if int(value) >= 200:  #設定縣市公布下限
+                    message += f"{title} {value}\n"
+            else :
+                if title == '中症':
+                    message += f"新增{title} {value}、"
+                else:
+                    message += f"{title} {value}\n"
         message += "\n"
     message += data["提醒"]
 
 # 發送通知
 print(message)
-print("Start Broadcast:")
+
+print("\n確定發送? (Y/任意鍵終止)")
+check = input()
+if( check=='Y' or check=='y' ) :
+    print("Start Broadcast:")
+else :
+    print("終止程序")
+    quit()
+
 for name, key in keys.items():
     print(f"[{name}]")
     status = requests.get(url="https://notify-api.line.me/api/status",
